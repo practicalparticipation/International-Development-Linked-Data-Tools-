@@ -40,9 +40,6 @@ def upload(filename,type):
             if len(data) >= chunk_size:
                 print "Storing chunk %s of %s (%s bytes), %s lines done, estimate %s remaining chunks" % (chunk, filename, len(data), linecount, expected_chunks - chunk + 1)
                 response, joburi = dataset.store_data(data, media_type='text/turtle')
-                f = open('archive/chunk'+str(chunk), 'w')
-                f.write(data)
-                f.close()
                 print joburi
                 chunk += 1
                 data = ''
@@ -75,8 +72,7 @@ for root, dirs, files in os.walk(exec_path):
             #We only want to do a full upload if we've not got removals or additions for this file
             if not(os.path.exists(stem+".nt_csremove") or os.path.exists(stem+".nt_csadd")):
                 upload(os.path.join(root, filename),' new data ')
-            #We still want to archive it?
-            archive(os.path.join(root, filename),False)
+                archive(os.path.join(root, filename),False)
 
     #Now do archival
     for filename in fnmatch.filter(files, '*.nt_csremove'):

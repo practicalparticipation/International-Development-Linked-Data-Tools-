@@ -71,5 +71,6 @@ if __name__ == '__main__':
     
     import sys
     dir="~/iati/data/packages/"
+    dir = os.path.expanduser(dir)
     check_dir(dir)
     run(dir,args.groups)

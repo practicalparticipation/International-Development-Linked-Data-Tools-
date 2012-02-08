@@ -10,7 +10,7 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 exec_path = os.curdir
 
 #Create the XSLT transformation function
-xslt = etree.parse(script_path+'/IATI-XSLT/templates/rdf/iati-activities-rdf.xsl')
+xslt = etree.parse(script_path+'/../IATI-XSLT/templates/rdf/iati-activities-rdf.xsl')
 transform = etree.XSLT(xslt)
 
 
