@@ -5,7 +5,8 @@ from datetime import date
 import os
 import hashlib
 
-def run(directory):
+
+def run(directory,groups):
     url = 'http://iatiregistry.org/api'
     import ckanclient
     registry = ckanclient.CkanClient(base_location=url)
@@ -20,16 +21,18 @@ def run(directory):
                 group = pkg.get('groups').pop()
             except Exception, e:
                 group = "Unknown"
-                
-            for resource in pkg.get('resources', []):
-                try:
-                    if(check_file(pkg_name,dir + group + '/',resource.get('hash'))):
-                        print "Saving file "+pkg_name
-                        save_file(pkg_name, resource.get('url'), dir + group + '/')
-                        print "File saved "+pkg_name
-                except Exception, e:
-                    print "Failed:", e
-                    print "Couldn't find directory"
+            
+            #Check if we were passed a list of groups, or if we're 
+            if (not groups) or (group in groups):
+                for resource in pkg.get('resources', []):
+                    try:
+                        if(check_file(pkg_name,dir + group + '/',resource.get('hash'))):
+                            print "Saving file "+pkg_name
+                            save_file(pkg_name, resource.get('url'), dir + group + '/')
+                            print "File saved "+pkg_name
+                    except Exception, e:
+                        print "Failed:", e
+                        print "Couldn't find directory"
 
 def save_file(pkg_name, url, dir):
     check_dir(dir)
@@ -60,7 +63,15 @@ def check_file(pkg_name,dir,hash):
         return True
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Download data packages from the IATI Registry')
+    parser.add_argument('--dir', type=str, nargs='?', default='~/iati/data/packages/',
+                   help='A full path to where packages should be stored')
+    parser.add_argument('--groups', dest='groups', type=str, nargs='*', 
+                   help='One or more groups to use')
+    args = parser.parse_args()
+    print args
     import sys
-    dir = '~/iati/data/packages/'
-    check_dir(dir)
-    run(dir)
+
+    check_dir(args.dir)
+    run(args.dir,args.groups)
