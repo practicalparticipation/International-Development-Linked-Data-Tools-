@@ -65,13 +65,11 @@ def check_file(pkg_name,dir,hash):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Download data packages from the IATI Registry')
-    parser.add_argument('--dir', type=str, nargs='?', default='~/iati/data/packages/',
-                   help='A full path to where packages should be stored')
     parser.add_argument('--groups', dest='groups', type=str, nargs='*', 
                    help='One or more groups to use')
     args = parser.parse_args()
-    print args
+    
     import sys
-
-    check_dir(args.dir)
-    run(args.dir,args.groups)
+    dir="~/iati/data/packages/"
+    check_dir(dir)
+    run(dir,args.groups)
