@@ -16,6 +16,11 @@ Pytassium, ckan, ckanclient, lxml, argparse
 	easy_install lxml
 	easy_install argparse
 
+xsltproc
+
+    apt-get install xsltproc
+
+Jena
 
 ## IATI to RDF Conversion Scripts
 
