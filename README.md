@@ -21,7 +21,7 @@ Pytassium, ckan, ckanclient, lxml, argparse
 
 These scripts fetch the latest IATI data from the IATI Registry and convert it to RDF before uploading to Kasabi platform. When re-run they check for changes to the data, and upload a changeset rather than original file, managing additions and removals. Changeset are archived. 
 
-### Synchronisation process
+### Download and conversion process
 
 Run the download script. This read through the IATI Registry, checking the checksum of files against those of files already downloaded. 
 
@@ -33,9 +33,19 @@ To just download a particular donors files add **--groups groupname** as a param
 
 To just fetch packages from DFID and the World Bank.
 
+At this point you can either go directory by directory with a shell script that performs a straight XSLT->RDF->NTriples conversion, or use a set of python scripts that also look to generate changesets to synchronise data, including removing deleted data during the sync process.
+
+#### Python route
 Then change to ~/iati/data/packages/ and run
 
     python ~/scripts/IATI/convert_to_rdf.py
+
+#### Shell script route
+Change into each directory and run:
+
+    ~/scripts/clprocess.sh
+
+### Upload process
 
 And then
 

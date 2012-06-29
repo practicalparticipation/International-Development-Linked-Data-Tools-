@@ -9,7 +9,8 @@ from rdflib import Graph
 from rdflib.parser import StringInputSource
 
 #Set up codelist parameters
-codelist_uri = "http://www.iatistandard.org/api/codelists/codes.xml"
+codelist_uri = "http://dev.yipl.com.np/iati/tools/public/api/codelists/"
+
 codelist_baseuri, codelist_index = os.path.split(codelist_uri)
 
 # Set up key variables
@@ -17,7 +18,7 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 exec_path = os.curdir
 
 #Create the XSLT transformation function
-xslt = etree.parse(script_path+'/IATI-XSLT/templates/rdf/iati-codelists-rdf.xsl')
+xslt = etree.parse(script_path+'/../IATI-XSLT/templates/rdf/iati-codelists-rdf.xsl')
 transform = etree.XSLT(xslt)
 
 
