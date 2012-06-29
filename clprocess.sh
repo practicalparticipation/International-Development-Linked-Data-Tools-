@@ -30,7 +30,7 @@ do
   echo "Converting $basename"
   xsltproc ~/scripts/IATI-XSLT/templates/rdf/iati-activities-rdf.xsl $f > $basename.rdf
   echo "Formatting $basename as N-Triples"
-  rdfcat -out N-TRIPLE $basename.rdf > $basename.nt
+  ~/software/Jena/bin/rdfcat -out N-TRIPLE $basename.rdf > $basename.nt
 done
 echo 
 echo
